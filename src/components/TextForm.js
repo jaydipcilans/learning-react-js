@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 export default function TextForm(props) {
-    const [text, setText] = useState("")
+    const [text, setText] = useState("");
 
     const handleUpClick = () => {
-        setText(text.toUpperCase())
-    }
+        setText(text.toUpperCase());
+    };
 
     const handleLoClick = () => {
-        setText(text.toLowerCase())
-    }
+        setText(text.toLowerCase());
+    };
 
     const handleDelete = () => {
-        setText("")
-    }
+        setText("");
+    };
 
     // const handleDowenloadText = (e) => {
     //     let element = document.createElement("a")
@@ -25,41 +25,73 @@ export default function TextForm(props) {
     // }
 
     const handleCopy = () => {
-        let text = document.getElementById('myBox')
-        text.select()
-        navigator.clipboard.writeText(text.value)
-    }
+        let text = document.getElementById("myBox");
+        text.select();
+        navigator.clipboard.writeText(text.value);
+    };
 
     const handleExtraSpaces = () => {
-        let newText = text.split(/[ ]+/)
-        setText(newText.join(" "))
-    }
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(" "));
+    };
 
     const handleChange = (e) => {
-        setText(e.target.value)
-    }
+        setText(e.target.value);
+    };
 
     return (
         <>
-            <div className='container'>
+            <div
+                className="container"
+                style={{
+                    color: props.mode === "dark" ? "white" : "#042743",
+                }}
+            >
                 <h1>{props.heading}</h1>
                 <div className="mb-3">
-                    <textarea className="form-control" id="myBox" rows="8" value={text} onChange={handleChange}>Enter text here</textarea>
+                    <textarea
+                        className="form-control"
+                        id="myBox"
+                        rows="8"
+                        value={text}
+                        onChange={handleChange}
+                        style={{
+                            backgroundColor: props.mode === "light" ? "white" : "grey",
+                            color: props.mode === "light" ? "#042743" : "white",
+                        }}
+                    ></textarea>
                 </div>
-                <button className="btn btn-primary mx-1" onClick={handleUpClick}>Convert to Uppercase</button>
-                <button className="btn btn-primary mx-1" onClick={handleLoClick}>Convert to Lowercase</button>
-                <button className="btn btn-primary mx-1" onClick={handleDelete}>Delete</button>
+                <button className="btn btn-primary mx-1" onClick={handleUpClick}>
+                    Convert to Uppercase
+                </button>
+                <button className="btn btn-primary mx-1" onClick={handleLoClick}>
+                    Convert to Lowercase
+                </button>
+                <button className="btn btn-primary mx-1" onClick={handleDelete}>
+                    Delete
+                </button>
                 {/* <button className="btn btn-primary mx-1" onClick={handleDowenloadText}>Download Text</button> */}
-                <button className="btn btn-primary mx-1" onClick={handleCopy}>Copy Text</button>
-                <button className="btn btn-primary mx-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+                <button className="btn btn-primary mx-1" onClick={handleCopy}>
+                    Copy Text
+                </button>
+                <button className="btn btn-primary mx-1" onClick={handleExtraSpaces}>
+                    Remove Extra Spaces
+                </button>
             </div>
-            <div className="container my-3">
+            <div
+                className="container my-3"
+                style={{
+                    color: props.mode === "dark" ? "white" : "#042743",
+                }}
+            >
                 <h1>Your text summary</h1>
-                <p>{text.split(" ").length} words and {text.length} characters</p>
+                <p>
+                    {text.split(" ").length} words and {text.length} characters
+                </p>
                 <p>{0.008 * text.split(" ").length} Minutes read</p>
                 <h2>Preview</h2>
-                <p>{text}</p>
+                <p>{text.length > 0 ? text : "Enter somthing in the texbox above to preview it here!"}</p>
             </div>
         </>
-    )
+    );
 }
