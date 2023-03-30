@@ -5,14 +5,17 @@ export default function TextForm(props) {
 
     const handleUpClick = () => {
         setText(text.toUpperCase());
+        props.showAlert("Convert to uppertcase!", "success");
     };
 
     const handleLoClick = () => {
         setText(text.toLowerCase());
+        props.showAlert("Convert to lowercase!", "success");
     };
 
     const handleDelete = () => {
         setText("");
+        props.showAlert("Succesfully Delete!", "success");
     };
 
     // const handleDowenloadText = (e) => {
@@ -28,11 +31,13 @@ export default function TextForm(props) {
         let text = document.getElementById("myBox");
         text.select();
         navigator.clipboard.writeText(text.value);
+        setText("Copied to Clipboard", "success");
     };
 
     const handleExtraSpaces = () => {
         let newText = text.split(/[ ]+/);
         setText(newText.join(" "));
+        setText("Remove extra spaces", "success");
     };
 
     const handleChange = (e) => {
@@ -90,7 +95,11 @@ export default function TextForm(props) {
                 </p>
                 <p>{0.008 * text.split(" ").length} Minutes read</p>
                 <h2>Preview</h2>
-                <p>{text.length > 0 ? text : "Enter somthing in the texbox above to preview it here!"}</p>
+                <p>
+                    {text.length > 0
+                        ? text
+                        : "Enter somthing in the texbox above to preview it here!"}
+                </p>
             </div>
         </>
     );
