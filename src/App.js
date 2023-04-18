@@ -4,7 +4,7 @@ import Alert from './components/Alert';
 import About from './components/About';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
-import { BrowserRouter, Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
 
@@ -40,8 +40,8 @@ function App() {
         <Alert alert={alert} />
         <div className="container my-3">
           <Routes>
-            <Route path="/" exate element={<TextForm heading="Enter the text to analyze below" mode={mode} showAlert={showAlert} />} />
-            <Route path="about" exate element={<About />} />
+            <Route path="/" exate element={<TextForm heading="Try TextUtils - Word Counter, Characters Counter, Remove extra spaces" mode={mode} showAlert={showAlert} />} />
+            <Route path="about" exate element={<About mode={mode} />} />
           </Routes>
         </div>
       </BrowserRouter>
