@@ -31,13 +31,14 @@ export default function TextForm(props) {
         let text = document.getElementById("myBox");
         text.select();
         navigator.clipboard.writeText(text.value);
-        setText("Copied to Clipboard", "success");
+        document.getSelection().removeAllRanges();
+        props.showAlert("Copied to Clipboard", "success");
     };
 
     const handleExtraSpaces = () => {
         let newText = text.split(/[ ]+/);
         setText(newText.join(" "));
-        setText("Remove extra spaces", "success");
+        props.showAlert("Remove extra spaces", "success");
     };
 
     const handleChange = (e) => {
@@ -52,7 +53,7 @@ export default function TextForm(props) {
                     color: props.mode === "dark" ? "white" : "#042743",
                 }}
             >
-                <h1>{props.heading}</h1>
+                <h2 className="mb-2">{props.heading}</h2>
                 <div className="mb-3">
                     <textarea
                         className="form-control"
@@ -61,25 +62,45 @@ export default function TextForm(props) {
                         value={text}
                         onChange={handleChange}
                         style={{
-                            backgroundColor: props.mode === "light" ? "white" : "grey",
+                            backgroundColor: props.mode === "light" ? "white" : "#042743",
                             color: props.mode === "light" ? "#042743" : "white",
                         }}
                     ></textarea>
                 </div>
-                <button className="btn btn-primary mx-1" onClick={handleUpClick}>
+                <button
+                    disabled={text.length === 0}
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={handleUpClick}
+                >
                     Convert to Uppercase
                 </button>
-                <button className="btn btn-primary mx-1" onClick={handleLoClick}>
+                <button
+                    disabled={text.length === 0}
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={handleLoClick}
+                >
                     Convert to Lowercase
                 </button>
-                <button className="btn btn-primary mx-1" onClick={handleDelete}>
+                <button
+                    disabled={text.length === 0}
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={handleDelete}
+                >
                     Delete
                 </button>
                 {/* <button className="btn btn-primary mx-1" onClick={handleDowenloadText}>Download Text</button> */}
-                <button className="btn btn-primary mx-1" onClick={handleCopy}>
+                <button
+                    disabled={text.length === 0}
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={handleCopy}
+                >
                     Copy Text
                 </button>
-                <button className="btn btn-primary mx-1" onClick={handleExtraSpaces}>
+                <button
+                    disabled={text.length === 0}
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={handleExtraSpaces}
+                >
                     Remove Extra Spaces
                 </button>
             </div>
@@ -91,15 +112,22 @@ export default function TextForm(props) {
             >
                 <h1>Your text summary</h1>
                 <p>
-                    {text.split(" ").length} words and {text.length} characters
+                    {
+                        text.split(" ").filter((e) => {
+                            return e.length !== 0;
+                        }).length
+                    }
+                    words and {text.length} characters
                 </p>
-                <p>{0.008 * text.split(" ").length} Minutes read</p>
-                <h2>Preview</h2>
                 <p>
-                    {text.length > 0
-                        ? text
-                        : "Enter somthing in the texbox above to preview it here!"}
+                    {0.008 *
+                        text.split(" ").filter((e) => {
+                            return e.length !== 0;
+                        }).length}
+                    Minutes read
                 </p>
+                <h2>Preview</h2>
+                <p>{text.length > 0 ? text : "Nothing to preview!"}</p>
             </div>
         </>
     );
