@@ -32,13 +32,13 @@ export default function TextForm(props) {
         text.select();
         navigator.clipboard.writeText(text.value);
         document.getSelection().removeAllRanges();
-        setText("Copied to Clipboard", "success");
+        props.showAlert("Copied to Clipboard", "success");
     };
 
     const handleExtraSpaces = () => {
         let newText = text.split(/[ ]+/);
         setText(newText.join(" "));
-        setText("Remove extra spaces", "success");
+        props.showAlert("Remove extra spaces", "success");
     };
 
     const handleChange = (e) => {
@@ -116,14 +116,14 @@ export default function TextForm(props) {
                         text.split(" ").filter((e) => {
                             return e.length !== 0;
                         }).length
-                    }{" "}
+                    }
                     words and {text.length} characters
                 </p>
                 <p>
                     {0.008 *
                         text.split(" ").filter((e) => {
                             return e.length !== 0;
-                        }).length}{" "}
+                        }).length}
                     Minutes read
                 </p>
                 <h2>Preview</h2>
